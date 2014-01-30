@@ -20,7 +20,7 @@ var Mobile = (function () {
     var self = {};
 
 
-	/**
+    /**
      * Proceeds connection
      * @public
      * @param {object} aForm
@@ -215,7 +215,7 @@ var Mobile = (function () {
     };
 
 
-	/**
+    /**
      * Resets DOM to its initial state
      * @public
      * @return {undefined}
@@ -294,7 +294,7 @@ var Mobile = (function () {
     };
 
 
-	/**
+    /**
      * Handles message stanza
      * @public
      * @param {object} msg
@@ -512,7 +512,7 @@ var Mobile = (function () {
     };
 
 
-	/**
+    /**
      * Handles disconnected state
      * @public
      * @return {undefined}
@@ -672,7 +672,7 @@ var Mobile = (function () {
     };
 
 
-	/**
+    /**
      * Gets user nick (the dumb way)
      * @public
      * @param {string} xid
@@ -778,7 +778,7 @@ var Mobile = (function () {
     };
 
 
-	/**
+    /**
      * Gets the host part of a XID
      * @public
      * @param {string} aXID
@@ -907,7 +907,7 @@ var Mobile = (function () {
     };
 
 
-	/**
+    /**
      * Creates given chat
      * @public
      * @param {string} xid
