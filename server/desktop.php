@@ -89,10 +89,12 @@ if(!anonymousMode() && !httpAuthEnabled()) { ?>
                             <span class="text"><?php _e("Login"); ?></span>
                         </button>
                         
+                        <?php if(REGISTRATION == 'on') { ?>
                         <button class="register buttons-images">
                             <span class="home-images"></span>
                             <span class="text"><?php _e("Register"); ?></span>
                         </button>
+                        <?php } ?>
                         
                         <p class="notice"><?php _e("For your account safety, when you login or register, make sure your password remains secret."); ?></p>
                     </div>
