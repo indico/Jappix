@@ -27,6 +27,7 @@ $main_conf = array(
     'language'              => 'all',
     'resource'              => 'Jappix',
     'lock'                  => 'on',
+    'cern_accounts'         => 'off',
     'anonymous'             => 'on',
     'http_auth'             => 'off',
     'registration'          => 'on',
@@ -84,6 +85,7 @@ define('LEGAL', $main_conf['legal']);
 define('LANGUAGE', $main_conf['language']);
 define('JAPPIX_RESOURCE', $main_conf['resource']);
 define('LOCK_HOST', $main_conf['lock']);
+define('CERN_ACCOUNTS', $main_conf['cern_accounts']);
 define('ANONYMOUS', $main_conf['anonymous']);
 define('HTTP_AUTH', $main_conf['http_auth']);
 define('REGISTRATION', $main_conf['registration']);

@@ -26,6 +26,7 @@ $legal = htmlspecialchars(LEGAL);
 $language = htmlspecialchars(LANGUAGE);
 $jappix_resource = htmlspecialchars(JAPPIX_RESOURCE);
 $lock_host = htmlspecialchars(LOCK_HOST);
+$cern_accounts = htmlspecialchars(CERN_ACCOUNTS);
 $anonymous_mode = htmlspecialchars(ANONYMOUS);
 $http_auth = htmlspecialchars(HTTP_AUTH);
 $registration = htmlspecialchars(REGISTRATION);
