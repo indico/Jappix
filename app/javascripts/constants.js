@@ -132,6 +132,7 @@ var OWNER_WEBSITE = null;
 var LEGAL = null;
 var JAPPIX_RESOURCE = null;
 var LOCK_HOST = null;
+var CERN_ACCOUNTS = null;
 var ANONYMOUS = null;
 var HTTP_AUTH = null;
 var REGISTRATION = null;
