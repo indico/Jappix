@@ -36,8 +36,16 @@ var Mobile = (function () {
             var xid = aForm.xid.value;
             var username, domain;
             
+            if(CERN_ACCOUNTS == 'on') {
+                domain = HOST_MAIN;
+                if(~xid.indexOf('@')) {
+                    username = hex_md5(xid).substr(0, 20);
+                } else {
+                    username = xid;
+                }
+            }
             // A domain is specified
-            if(xid.indexOf('@') != -1) {
+            else if(xid.indexOf('@') != -1) {
                 username = self.getXIDNick(xid);
                 domain = self.getXIDHost(xid);
                 

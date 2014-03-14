@@ -879,6 +879,11 @@ html[dir="rtl"] #home span.jid {
 	width: 110px;
 }
 
+#home input.cernuser,
+#home input.cernpassword {
+    width: 247px;
+}
+
 #home input.password {
 	margin-right: 22px;
 }
