@@ -69,16 +69,24 @@ var Home = (function () {
                 // Login tool
                 case 'loginer':
                     lock_host = Utils.disableInput(LOCK_HOST, 'on');
-                    code = '<p>' + Common.printf(Common._e("Login to your existing XMPP account. You can also use the %s to join a groupchat."), '<a href="#" class="to-anonymous">' + Common._e("anonymous mode") + '</a>') + '</p>' + 
+                    var intro = CERN_ACCOUNTS == 'on' ? Common._e("Login using your CERN account.") :
+                                ANONYMOUS == 'on' ? Common._e("Login to your existing XMPP account. You can also use the %s to join a groupchat.") :
+                                Common._e("Login to your existing XMPP account.");
+                    code = '<p>' + Common.printf(intro, '<a href="#" class="to-anonymous">' + Common._e("anonymous mode") + '</a>') + '</p>' + 
                         
                         '<form action="#" method="post">' + 
                             '<fieldset>' + 
                                 '<legend>' + Common._e("Required") + '</legend>' + 
                                 
-                                '<label for="lnick">' + Common._e("Address") + '</label>' + 
-                                '<input type="text" class="nick" id="lnick" pattern="[^@/]+" required="" /><span class="jid">@</span><input type="text" class="server" id="lserver" value="' + HOST_MAIN + '" ' + lock_host + ' pattern="[^@/]+" required="" />' + 
+                                (CERN_ACCOUNTS == 'on' ? 
+                                    '<label for="lcernuser">' + Common._e("CERN account") + '</label>' +
+                                    '<input type="text" class="cernuser" id="lcernuser" pattern="[^/]+" required="" />'
+                                :
+                                    '<label for="lnick">' + Common._e("Address") + '</label>' + 
+                                    '<input type="text" class="nick" id="lnick" pattern="[^@/]+" required="" /><span class="jid">@</span><input type="text" class="server" id="lserver" value="' + HOST_MAIN + '" ' + lock_host + ' pattern="[^@/]+" required="" />'
+                                ) +
                                 '<label for="lpassword">' + Common._e("Password") + '</label>' + 
-                                '<input type="password" class="password" id="lpassword" required="" />' + 
+                                '<input type="password" class="' + (CERN_ACCOUNTS == 'on' ? 'cernpassword' : 'password') + '" id="lpassword" required="" />' + 
                                 '<label for="lremember">' + Common._e("Remember me") + '</label>' + 
                                 '<input type="checkbox" class="remember" id="lremember" />' + 
                             '</fieldset>' + 
@@ -290,12 +298,23 @@ var Home = (function () {
             // We get the values
             var lPath = '#home .loginer ';
             var lServer = $(lPath + '.server').val();
+            var lCernUser = $(lPath + '.cernuser').val();
             var lNick = Common.nodeprep($(lPath + '.nick').val());
             var lPass = $(lPath + '.password').val();
             var lResource = $(lPath + '.resource').val();
             var lPriority = $(lPath + '.priority').val();
             var lRemember = $(lPath + '.remember').filter(':checked').size();
             
+            if (CERN_ACCOUNTS == 'on') {
+                lServer = HOST_MAIN;
+                lPass = $(lPath + '.cernpassword').val();
+                if(~lCernUser.indexOf('@')) {
+                    lNick = hex_md5(lCernUser).substr(0, 20);
+                } else {
+                    lNick = lCernUser;
+                }
+            }
+
             // Enough values?
             if(lServer && lNick && lPass && lResource && lPriority) {
                 Connection.doLogin(lNick, lServer, lPass, lResource, lPriority, lRemember);
