@@ -27,6 +27,13 @@ if($lock_host == 'on') {
     $check_lock_host = '';
 }
 
+// CERN accounts
+if($cern_accounts == 'on') {
+    $check_cern_accounts = $checked;
+} else {
+    $check_cern_accounts = '';
+}
+
 // Anonymous mode
 if($anonymous_mode == 'on') {
     $check_anonymous_mode = $checked;
@@ -152,6 +159,8 @@ if($ads_enable == 'on') {
     <label for="jappix_resource"><?php _e("Resource"); ?></label><input id="jappix_resource" type="text" name="jappix_resource" value="<?php echo $jappix_resource; ?>" maxlength="1023" />
 
     <label for="lock_host"><?php _e("Lock the host"); ?></label><input id="lock_host" type="checkbox" name="lock_host"<?php echo $check_lock_host; ?> />
+
+    <label for="cern_accounts"><?php _e("CERN accounts"); ?></label><input id="cern_accounts" type="checkbox" name="cern_accounts"<?php echo $check_cern_accounts; ?> />
 
     <label for="anonymous_mode"><?php _e("Anonymous mode"); ?></label><input id="anonymous_mode" type="checkbox" name="anonymous_mode"<?php echo $check_anonymous_mode; ?> />
 

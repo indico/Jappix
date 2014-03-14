@@ -72,6 +72,13 @@ if(isset($_POST['lock_host']) && !empty($_POST['lock_host'])) {
     $lock_host = 'off';
 }
 
+// CERN accounts
+if(isset($_POST['cern_accounts']) && !empty($_POST['cern_accounts'])) {
+    $cern_accounts = 'on';
+} else {
+    $cern_accounts = 'off';
+}
+
 // Anonymous mode
 if(isset($_POST['anonymous_mode']) && !empty($_POST['anonymous_mode'])) {
     $anonymous_mode = 'on';
@@ -250,6 +257,7 @@ $conf_xml =
     <language>'.$language.'</language>
     <resource>'.$jappix_resource.'</resource>
     <lock>'.$lock_host.'</lock>
+    <cern_accounts>'.$cern_accounts.'</cern_accounts>
     <anonymous>'.$anonymous_mode.'</anonymous>
     <http_auth>'.$http_auth.'</http_auth>
     <registration>'.$registration.'</registration>

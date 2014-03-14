@@ -172,6 +172,7 @@ function setConfiguration($string, $hash, $locale, $version, $max_upload) {
                 'LEGAL'                 => LEGAL,
                 'JAPPIX_RESOURCE'       => JAPPIX_RESOURCE,
                 'LOCK_HOST'             => LOCK_HOST,
+                'CERN_ACCOUNTS'         => CERN_ACCOUNTS,
                 'ANONYMOUS'             => ANONYMOUS,
                 'REGISTRATION'          => REGISTRATION,
                 'MANAGER_LINK'          => MANAGER_LINK,
