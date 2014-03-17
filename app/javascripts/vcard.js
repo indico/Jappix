@@ -46,7 +46,7 @@ var vCard = (function () {
                         '<label for="USER-FN">' + Common._e("Complete name") + '</label>' + 
                         '<input type="text" id="USER-FN" data-vcard4="fn-text" class="vcard-item" placeholder="John Locke" />' + 
                         
-                        '<label for="USER-NICKNAME">' + Common._e("Nickname") + '</label>' + 
+                        '<label for="USER-NICKNAME"><strong>' + Common._e("Nickname") + '</strong></label>' + 
                         '<input type="text" id="USER-NICKNAME" data-vcard4="nickname-text" class="vcard-item" placeholder="Jo" />' + 
                         
                         '<label for="USER-N-GIVEN">' + Common._e("First name") + '</label>' + 
@@ -129,7 +129,7 @@ var vCard = (function () {
                     '<p>' + Common._e("Be careful with the information you store into your profile, because it might be accessible by everyone (even someone you don't want to).") + '</p>' + 
                     '<p>' + Common._e("Not everything is private on XMPP; this is one of those things, your public profile (vCard).") + '</p>' + 
                     '<p>' + Common.printf(Common._e("It is strongly recommended to upload a profile image (%s maximum), like a picture of yourself, because that makes you easily recognizable by your friends."), JAPPIX_MAX_UPLOAD) + '</p>' + 
-                    '<p><b><a href="https://me.jappix.com/new" target="_blank">' + Common._e("Enable my public profile") + ' »</a></b></p>' + 
+                    (CERN_ACCOUNTS == 'off' ? '<p><b><a href="https://me.jappix.com/new" target="_blank">' + Common._e("Enable my public profile") + ' »</a></b></p>' : '') + 
                 '</div>' + 
             '</div>' + 
             
@@ -143,6 +143,10 @@ var vCard = (function () {
             // Create the popup
             Popup.create('vcard', html);
             
+            if(CERN_ACCOUNTS == 'on' && !DataStore.getDB(Connection.desktop_hash, 'profile', 'nick') && Common.getXIDNick(Common.getXID()).length == 20) {
+                $('#vcard .bottom .cancel').html(Common._e("Cancel and disconnect"));
+            }
+
             // Associate the events
             self.instance();
             
@@ -868,7 +872,7 @@ var vCard = (function () {
         try {
             // Focus on the first input
             $(document).oneTime(10, function() {
-                $('#vcard input:first').focus();
+                $('#USER-NICKNAME').focus();
             });
             
             // Keyboard events
@@ -895,8 +899,13 @@ var vCard = (function () {
             });
             
             $('#vcard .bottom .finish').click(function() {
-                if($(this).is('.cancel'))
+                if($(this).is('.cancel')) {
+                    if(CERN_ACCOUNTS == 'on' && !DataStore.getDB(Connection.desktop_hash, 'profile', 'nick') && Common.getXIDNick(Common.getXID()).length == 20) {
+                        Connection.normalQuit();
+                        return false;
+                    }
                     return self.close();
+                }
                 if($(this).is('.save') && !$(this).hasClass('disabled'))
                     return self.send();
                 
