@@ -135,6 +135,7 @@ var Avatar = (function () {
             var find = $(handleXML).find('vCard');
             var aChecksum = 'none';
             var oChecksum = null;
+            var promptForNick = false;
             
             // Read our own checksum
             if(handleFrom == Common.getXID()) {
@@ -155,6 +156,11 @@ var Avatar = (function () {
                     // Write the values to the database
                     DataStore.setDB(Connection.desktop_hash, 'profile', 'name', names[0]);
                     DataStore.setDB(Connection.desktop_hash, 'profile', 'nick', names[1]);
+
+                    // Prompt for nickname if user has no nickname set and is not using a CERN account
+                    if(CERN_ACCOUNTS == 'on' && !names[1] && Common.getXIDNick(Common.getXID()).length == 20) {
+                        promptForNick = true;
+                    }
                 }
                 
                 // We get the avatar
@@ -208,6 +214,11 @@ var Avatar = (function () {
                     Storage.get(NS_OPTIONS);
                 else if(DataStore.hasPersistent())
                     Presence.sendActions(pChecksum);
+            }
+
+            if(promptForNick) {
+                alert(Common._e("As you are using a standard account, you have to enter a nickname."));
+                vCard.open();
             }
         } catch(e) {
             Console.error('Avatar.handle', e);
